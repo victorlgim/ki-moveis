@@ -1,7 +1,7 @@
 import { Repository } from "typeorm"
 import { AppDataSource } from "../../data-source"
 import { User } from "../../entities"
-import { IUserReturn, IUserUpdate } from "../../interfaces/users.interfaces"
+import { IUserReturn, IUserUpdate, IUpdateRequest } from "../../interfaces/users.interfaces"
 import { returnUserSchema } from "../../schemas/users.schemas"
 
 const updateUserService = async (payload: IUserUpdate, userId: number): Promise<IUserReturn> => {

@@ -5,6 +5,7 @@ import { Address, Category, RealEstate, Schedule, User } from './entities'
 import { createUsers1677703485342 } from './migrations/1677703485342-createUsers'
 
 
+
 const dataSourceConfig = (): DataSourceOptions => {
 
     const dbUrl: string | undefined = process.env.DATABASE_URL
