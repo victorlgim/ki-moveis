@@ -1,12 +1,11 @@
 import 'dotenv/config'
-import path from 'path'
 import 'reflect-metadata'
 import { DataSource, DataSourceOptions } from 'typeorm'
+import { Address, Category, RealEstate, Schedule, User } from './entities'
+import { createUsers1677703485342 } from './migrations/1677703485342-createUsers'
+
 
 const dataSourceConfig = (): DataSourceOptions => {
-
-    const entitiesPath: string = path.join(__dirname, './entities/**.{ts,js}')
-    const migrationsPath: string = path.join(__dirname, './migrations/**.{ts,js}')
 
     const dbUrl: string | undefined = process.env.DATABASE_URL
 
@@ -21,7 +20,7 @@ const dataSourceConfig = (): DataSourceOptions => {
             type: 'sqlite',
             database: ':memory:',
             synchronize: true,
-            entities: [entitiesPath]
+            entities: [User, Schedule, RealEstate, Address, Category]
         }
     }
     
@@ -30,8 +29,8 @@ const dataSourceConfig = (): DataSourceOptions => {
         url: dbUrl,
         synchronize: false,
         logging: true,
-        migrations: [migrationsPath],
-        entities: [entitiesPath]
+        migrations: [createUsers1677703485342],
+        entities: [User, Schedule, RealEstate, Address, Category]
     }
 }
 

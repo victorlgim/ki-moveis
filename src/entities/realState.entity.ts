@@ -3,7 +3,6 @@ import { Address } from "./addresses.entity";
 import { Category } from "./categories.entity";
 import { Schedule } from "./schedule.entity";
 
-
 @Entity("real_estate")
 class RealEstate {
   @PrimaryGeneratedColumn()
@@ -12,8 +11,8 @@ class RealEstate {
   @Column({ type: "boolean", default: false })
   sold: boolean;
 
-  @Column({ type: "decimal", precision: 12, scale: 2 })
-  value: number;
+  @Column({ type: "decimal", precision: 12, scale: 2, default: 0 })
+  value: number | string;
 
   @Column({ type: "integer" })
   size: number;

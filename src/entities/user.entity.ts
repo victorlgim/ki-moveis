@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm";
+import { getRounds, hashSync } from "bcryptjs";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, BeforeInsert, BeforeUpdate } from "typeorm";
 
 @Entity("users")
 class User {
@@ -11,7 +12,7 @@ class User {
   @Column({ type: "varchar", length: 45, unique: true })
   email: string;
 
-  @Column({ type: "boolean" })
+  @Column({ type: "boolean", nullable: true })
   admin: boolean;
 
   @Column({ type: "varchar", length: 120 })
@@ -26,6 +27,15 @@ class User {
   @DeleteDateColumn()
   deletedAt: Date;
   schedules: any;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  hashPassword(){
+      const isEncrypted = getRounds(this.password)
+      if(!isEncrypted){
+          this.password = hashSync(this.password, 10)
+      }
+  }
 }
 
 export { User };
