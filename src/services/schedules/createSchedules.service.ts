@@ -1,15 +1,10 @@
-import { Repository, getRepository } from 'typeorm'
+import { Repository } from 'typeorm'
 import { AppDataSource } from '../../data-source'
 import { Schedule, User, RealEstate } from '../../entities'
 import { AppError } from '../../errors';
+import { iCreateSchedule } from '../../interfaces/schedules.interfaces';
 
-interface ICreateSchedule {
-  date: string;
-  hour: string;
-  realEstateId: number;
-}
-
-const createScheduleService = async (userId: number, scheduleData: ICreateSchedule): Promise<Schedule> => {
+const createScheduleService = async (userId: number, scheduleData: iCreateSchedule): Promise<Schedule> => {
 
   const userRepository: Repository<User> = AppDataSource.getRepository(User)
   const realEstateRepository: Repository<RealEstate> = AppDataSource.getRepository(RealEstate)
@@ -35,22 +30,33 @@ const createScheduleService = async (userId: number, scheduleData: ICreateSchedu
     throw new AppError('RealEstate not found', 404)
   }
 
-  const existingSchedule = await scheduleRepository.createQueryBuilder('schedule')
+  const existingSchedule = await scheduleRepository
+    .createQueryBuilder('schedule')
     .where('schedule.date = :date', { 
-        date: scheduleData.date 
+      date: scheduleData.date 
     })
     .andWhere('schedule.hour = :hour', { 
-        hour: scheduleData.hour 
+      hour: scheduleData.hour 
     })
-    .getOne()
+    .andWhere('schedule.realEstateId = :realEstateId', { 
+      realEstateId: scheduleData.realEstateId 
+    })
+    .getOne();
 
-    const existingUserSchedule = await scheduleRepository.createQueryBuilder('schedule')
-  .where('schedule.date = :date', { date: scheduleData.date })
-  .andWhere('schedule.hour = :hour', { hour: scheduleData.hour })
-  .andWhere('schedule.realEstateId = :realEstateId', { realEstateId: scheduleData.realEstateId })
-  .andWhere('schedule.userId = :userId', { userId })
-  .getOne();
+    const existingUserSchedule = await scheduleRepository
+    .createQueryBuilder('schedule')
+    .where('schedule.date = :date', { 
+      date: scheduleData.date 
+    })
+    .andWhere('schedule.hour = :hour', { 
+      hour: scheduleData.hour 
+    })
+    .andWhere('schedule.userId = :userId', { 
+      userId 
+    })
+    .getOne();
 
+  
   if (existingSchedule) {
     throw new AppError('Schedule to this real estate at this date and time already exists', 409)
   }

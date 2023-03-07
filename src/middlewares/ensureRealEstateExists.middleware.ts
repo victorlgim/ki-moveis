@@ -3,8 +3,7 @@ import { AppDataSource } from "../data-source";
 import { Address, RealEstate} from "../entities";
 import { AppError } from "../errors";
 
-  
-export const checkDuplicateAddress = async (req: Request, res: Response, next: NextFunction) => {
+const checkDuplicateAddress = async (req: Request, res: Response, next: NextFunction) => {
 
     const realEstateAddress = req.body.address;
   
@@ -13,8 +12,7 @@ export const checkDuplicateAddress = async (req: Request, res: Response, next: N
     const existingAddress = await realEstateRepository.findOne({
       where: {
           street: realEstateAddress?.street,
-          zipCode: realEstateAddress?.zipCode,
-        
+          zipCode: realEstateAddress?.zipCode 
       },
     });
   
@@ -25,7 +23,7 @@ export const checkDuplicateAddress = async (req: Request, res: Response, next: N
     next();
   };
 
-  export const ensureNotFoundRealEstates = async (req: Request, res: Response, next: NextFunction) => {
+ const ensureNotFoundRealEstates = async (req: Request, res: Response, next: NextFunction) => {
 
     const realEstate = req.body.realEstateId;
   
@@ -43,7 +41,32 @@ export const checkDuplicateAddress = async (req: Request, res: Response, next: N
       }
     }
    
-  
     next();
   };
   
+const ensureNotFoundRealEstatesParams = async (req: Request, res: Response, next: NextFunction) => {
+
+    const realEstate = parseInt(req.params.id);
+  
+    const realEstateRepository = AppDataSource.getRepository(RealEstate);
+  
+    const existingRealEstate = await realEstateRepository.findOne({
+      where: {
+          id: realEstate
+      },
+    });
+  
+    if(realEstate) {
+      if (!existingRealEstate) {
+        throw new AppError(`RealEstate not found`, 404);
+      }
+    }
+   
+    next();
+  };
+
+  export {
+    checkDuplicateAddress,
+    ensureNotFoundRealEstates,
+    ensureNotFoundRealEstatesParams
+  }

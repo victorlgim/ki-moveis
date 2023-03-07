@@ -1,10 +1,7 @@
-import { IRealEstate, IReturnRealEstate, IRealEstatePayload } from '../../interfaces/realEstate.interfaces'  
 import { AppDataSource } from '../../data-source'
 import { Address, Category, RealEstate } from '../../entities'
 import { Repository } from 'typeorm'
-import { createRealEstateSchema, realEstateSchema, returnRealEstateSchema } from '../../schemas/realEstate.schemas'
 import { AppError } from '../../errors'
-import { DeepPartial } from 'typeorm'
 
 const createRealEstateService = async (payload: any): Promise<any> => {
   const realEstateRepository: Repository<RealEstate> = AppDataSource.getRepository(RealEstate);

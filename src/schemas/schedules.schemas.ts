@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { returnUserSchema } from './users.schemas'
 
 const scheduleSchema = z.object({
     date: z.string(),
@@ -7,7 +8,8 @@ const scheduleSchema = z.object({
 })
 
 const returnScheduleSchema = scheduleSchema.extend({
-    id: z.number()
+    id: z.number(),
+    user: returnUserSchema
 })
 
 export {

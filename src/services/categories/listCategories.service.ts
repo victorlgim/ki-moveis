@@ -3,8 +3,7 @@ import { AppDataSource } from "../../data-source"
 import { Category, RealEstate } from "../../entities"
 import { ICategoriesReturn } from "../../interfaces/categories.interfaces"
 import { returnMultipleCategorySchema } from "../../schemas/categories.schemas"
-import { expectedResponseSchema, returnMultipleRealEstateSchema } from "../../schemas/realEstate.schemas"
-
+import { expectedResponseSchema } from "../../schemas/realEstate.schemas"
 
 const listCategoryService = async (): Promise<ICategoriesReturn> => {
 
