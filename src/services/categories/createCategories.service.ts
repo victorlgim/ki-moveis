@@ -4,8 +4,6 @@ import { Category } from '../../entities'
 import { Repository } from 'typeorm'
 import { returnCategorySchema } from '../../schemas/categories.schemas'
 
-
-
 const createCategoriesService = async (payload: ICategory): Promise<ICategoryReturn> => {
 
     const categoryRepository: Repository<Category> = AppDataSource.getRepository(Category)
