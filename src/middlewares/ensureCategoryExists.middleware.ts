@@ -24,4 +24,24 @@ export const checkDuplicateCategoryName = async (req: Request, res: Response, ne
   
     next();
   };
+
+  export const checkNotFoundCategoryId = async (req: Request, res: Response, next: NextFunction) => {
+
+    const categoryId: number = parseInt(req.params.id);
+  
+    const categoryRepository = AppDataSource.getRepository(Category);
+  
+    const existingCategory = await categoryRepository.findOne({
+      where: {
+        id: categoryId
+      },
+    });
+  
+    if (!existingCategory) {
+      throw new AppError(`Category not found`, 404);
+   }
+    
+  
+    next();
+  };
   

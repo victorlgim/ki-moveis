@@ -2,18 +2,13 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 
 @Entity("categories")
 class Category {
-@PrimaryGeneratedColumn()
+@PrimaryGeneratedColumn('increment')
 id: number;
 
 @Column({ type: "varchar", length: 45, unique: true })
 name: string;
+  realEstates: any;
 
-@CreateDateColumn()
-createdAt: Date;
-
-@UpdateDateColumn()
-updatedAt: Date;
-    realEstates: any;
 }
 
 export { Category };

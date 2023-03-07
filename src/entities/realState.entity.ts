@@ -5,7 +5,7 @@ import { Schedule } from "./schedule.entity";
 
 @Entity("real_estate")
 class RealEstate {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("increment")
   id: number;
 
   @Column({ type: "boolean", default: false })
@@ -17,18 +17,17 @@ class RealEstate {
   @Column({ type: "integer" })
   size: number;
 
-  @CreateDateColumn()
-  createdAt: Date;
+  @CreateDateColumn({ type: 'date' })
+  createdAt: string;
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @UpdateDateColumn({ type: 'date' })
+  updatedAt: string;
 
   @ManyToOne(() => Address, (address: { realEstates: any; }) => address.realEstates)
   @JoinColumn({ name: "addressId" })
   address: Address;
 
   @ManyToOne(() => Category, category => category.realEstates)
-  @JoinColumn({ name: "categoryId" })
   category: Category;
 
   @OneToMany(() => Schedule, schedule => schedule.realEstate)
