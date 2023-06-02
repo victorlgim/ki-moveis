@@ -2,11 +2,7 @@
 
 ## Introdução
 
-O dono da imobiliária Kimóveis contratou sua empresa para desenvolver uma aplicação para o gerenciamento de seus serviços.
-
-Através da aplicação deverá ser possível realizar o cadastro de imóveis e de usuários interessados na aquisição de propriedades. Além disso, deverá ser possível realizar o agendamento e consultar horários de visitas às propriedades disponíveis no banco de dados da imobiliária.
-
-A sua empresa está te confiando esse desafio, portanto, dê o seu melhor no desenvolvimento desse projeto, seguindo todas as regras impostas pela empresa contratante.
+Através dessa aplicação, é possível realizar o cadastro de imóveis e de usuários interessados em adquirir propriedades. Além disso, é totalmente possível agendar e consultar os horários de visitas aos imóveis disponíveis no banco de dados.
 
 ## Endpoints:
 
